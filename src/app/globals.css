@@ -1,26 +1,79 @@
 @import "tailwindcss";
+@import "lenis/dist/lenis.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --color-bg: #f2f3ef;
+  --color-ink: #15181a;
+  --color-ink2: #24282a;
+  --color-muted: #5a615b;
+  --color-acc: #2f5a3e;
+  --color-forest: #1f2f25;
+  --color-sage: #e4e8e2;
+  --color-graphite: #17181b;
+  --color-ochre: #8a6a1f;
+  --color-paper: #fbfbf8;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-serif: var(--font-instrument-serif), Georgia, serif;
+  --font-sans: var(--font-instrument-sans), system-ui, sans-serif;
+  --font-script: var(--font-script-face), cursive;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --animate-floaty: floaty 7s ease-in-out infinite;
+  --animate-marquee: marquee 40s linear infinite;
+
+  @keyframes floaty {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 -10px; }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
   }
 }
 
+html {
+  background: var(--color-bg);
+  color: var(--color-ink);
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-acc);
+  color: var(--color-bg);
+}
+
+/* Outlined display text (hero names, gallery words) */
+/* Stroke colour comes from --stroke (currentColor would be the transparent fill) */
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--stroke, var(--color-ink));
+}
+.text-outline-ink {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--color-ink);
+}
+
+/* Subtle dotted backdrop */
+.bg-dots {
+  background-image: radial-gradient(rgb(21 24 26 / 0.14) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+.bg-dots-light {
+  background-image: radial-gradient(rgb(255 255 255 / 0.07) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
