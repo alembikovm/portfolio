@@ -12,8 +12,6 @@ import { Mindset } from "@/components/sections/Mindset";
 import { Experience } from "@/components/sections/Experience";
 import { Highlights } from "@/components/sections/Highlights";
 import { Skills } from "@/components/sections/Skills";
-import { Gallery } from "@/components/sections/Gallery";
-import { Socials } from "@/components/sections/Socials";
 import { Contact } from "@/components/sections/Contact";
 import { SphereLoader } from "@/components/three/SphereLoader";
 
@@ -36,8 +34,6 @@ export default function Home() {
         <Experience />
         <Highlights />
         <Skills />
-        <Gallery />
-        <Socials />
         <Contact />
       </main>
     </>

@@ -90,7 +90,6 @@ export const site = {
     { id: "motivation", label: "Approach" },
     { id: "experience", label: "Experience" },
     { id: "highlights", label: "Impact" },
-    { id: "gallery", label: "Gallery" },
     { id: "contact", label: "Contact" },
   ],
 
@@ -224,6 +223,23 @@ export const site = {
 
   /** Open-source and side projects, from github.com/alembikovm. */
   lab: [
+    {
+      title: "IELTS Coach",
+      blurb: "An AI coach for IELTS Academic: daily plan, Writing and Speaking feedback by criterion, generated Reading and Listening tests.",
+      stack: ["Next.js", "FastAPI", "Claude", "Cloudflare Vectorize", "Electron", "GSAP"],
+      points: [
+        "Verified agent harness: bands, quotes and sources checked in code",
+        "RAG on Workers AI + Vectorize, Whisper for speech",
+        "Web and Electron clients; the API token never reaches the page",
+      ],
+      links: [
+        { label: "Live", href: "https://ielts-coach-rouge.vercel.app" },
+        { label: "Code", href: "https://github.com/alembikovm/ielts-coach-web" },
+      ],
+      image: "/ielts-coach.jpg",
+      tone: "from-lime-100 to-stone-300",
+      context: "Side project · 2026",
+    },
     {
       title: "Mini Flow Builder",
       blurb: "A no-code flow builder: drag screens into a phone frame, edit them in an inspector, export JSON.",
@@ -521,20 +537,5 @@ export const site = {
     { name: "Русский", level: "Native" },
   ],
 
-  // Placeholder tiles until real photos are added
-  gallery: [
-    { label: "Workspace", tone: "from-stone-300 to-stone-700", x: 18, y: 4, w: 13, speed: 0.25 },
-    { label: "Almaty mountains", tone: "from-sky-300 to-slate-700", x: 62, y: 0, w: 19, speed: -0.15 },
-    { label: "Team offsite", tone: "from-amber-200 to-stone-700", x: 48, y: 30, w: 15, speed: 0.35 },
-    { label: "Conference talk", tone: "from-slate-300 to-stone-600", x: 6, y: 44, w: 18, speed: -0.1 },
-    { label: "City nights", tone: "from-indigo-700 to-amber-500", x: 66, y: 58, w: 14, speed: 0.2 },
-  ],
-  galleryWords: ["Build", "Lead", "Ship"],
-
-  socials: [
-    { label: "LinkedIn", handle: "Marat Alembikov", href: "https://www.linkedin.com/in/marat-alembikov/" },
-    { label: "GitHub", handle: "@alembikovm", href: "https://github.com/alembikovm" },
-    { label: "Upwork", handle: "Profile", href: "#" },
-  ],
   github: "https://github.com/alembikovm",
 };

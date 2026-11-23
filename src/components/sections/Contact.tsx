@@ -40,7 +40,10 @@ export function Contact() {
             <a href={`mailto:${site.email}`} className={link}>
               {site.email}
             </a>
-            <a href={site.github} className={link}>
+            <a href={site.linkedin} target="_blank" rel="noreferrer" className={link}>
+              LinkedIn
+            </a>
+            <a href={site.github} target="_blank" rel="noreferrer" className={link}>
               GitHub
             </a>
             <a href={site.cv} download className={link}>
