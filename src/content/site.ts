@@ -38,6 +38,18 @@ export type LabProject = {
   links: ProjectLink[];
   image?: string;
   tone: string;
+  /** Where and when, for client work (side projects leave it out). */
+  context?: string;
+};
+
+export type Article = {
+  title: string;
+  blurb: string;
+  tag: string;
+  date: string;
+  read: string;
+  href: string;
+  cover: string;
 };
 
 export const site = {
@@ -74,6 +86,7 @@ export const site = {
     { id: "lab", label: "Lab" },
     { id: "leetcode", label: "LeetCode" },
     { id: "toolbox", label: "Stack" },
+    { id: "writing", label: "Writing" },
     { id: "motivation", label: "Approach" },
     { id: "experience", label: "Experience" },
     { id: "highlights", label: "Impact" },
@@ -112,7 +125,7 @@ export const site = {
         { value: "20", label: "DOM nodes, from 1000+" },
         { value: "200+", label: "tests from zero" },
       ],
-      media: [{ src: "/planeer.png", caption: "Planning board: equipment groups, live “now” line and order operations" }],
+      media: [{ src: "/planeer.png", caption: "Resource-free timeline: plan and fact boards side by side, with the order operation panel" }],
     },
     {
       title: "Sparring",
@@ -242,6 +255,36 @@ export const site = {
       ],
       tone: "from-slate-800 to-sky-900",
     },
+    {
+      title: "Mortgage Marketplace",
+      blurb: "Pick a mortgage across 15+ banks: a calculator, a step-by-step borrower questionnaire and document upload for B2B and B2C clients.",
+      stack: ["React", "Express", "UI kit"],
+      points: ["Mortgage product selection 23% faster", "Step-by-step quiz for B2C clients", "Shared UI kit: new features 15% faster"],
+      links: [],
+      image: "/mortgage.jpg",
+      tone: "from-emerald-200 to-stone-300",
+      context: "Altarix · 2019 — 2020",
+    },
+    {
+      title: "Music Label Community",
+      blurb: "A music label platform where new artists upload tracks, climb the top charts and get discovered.",
+      stack: ["React", "Redux", "Redux-Saga"],
+      points: ["Auth, track uploads and artist pages", "Custom video player", "Latest releases and top tracks"],
+      links: [],
+      image: "/music-label.jpg",
+      tone: "from-violet-700 to-stone-800",
+      context: "SimbirSoft · 2018 — 2019",
+    },
+    {
+      title: "Golf Challenge App",
+      blurb: "A mobile app for golf clubs: pick a hole, set a challenge level and win prizes for a birdie or a hole in one.",
+      stack: [],
+      points: ["Built the Profile and Bets sections", "Challenge flow from course map to payout"],
+      links: [],
+      image: "/golf-app.jpg",
+      tone: "from-emerald-800 to-emerald-950",
+      context: "Mercury Development · 2018",
+    },
   ] satisfies LabProject[],
 
   /** Snapshot of leetcode.com/u/alembikovm (public GraphQL), refresh by hand. */
@@ -276,6 +319,101 @@ export const site = {
       { name: "Union-Find", count: 4 },
     ],
   },
+
+  /** LinkedIn articles, newest first. The first one is featured. */
+  linkedin: "https://www.linkedin.com/in/marat-alembikov/",
+  articles: [
+    {
+      title: "AI App Security: Plugging the Holes Everyone Forgets",
+      blurb: "Your model key can stay hidden in env vars and still leak money through your own endpoint. How it happens and how to close the holes.",
+      tag: "AI · Security",
+      date: "Jul 2026",
+      read: "8 min",
+      href: "https://www.linkedin.com/pulse/ai-app-security-plugging-holes-everyone-forgets-marat-alembikov-6julf/",
+      cover: "/articles/ai-app-security.jpg",
+    },
+    {
+      title: "JavaScript Proxy: the feature most developers barely use",
+      blurb: "What Proxy really does, and why so many modern libraries are built on top of it.",
+      tag: "JavaScript",
+      date: "Mar 2026",
+      read: "2 min",
+      href: "https://www.linkedin.com/pulse/javascript-proxy-one-most-powerful-features-barely-use-alembikov-nt78e/",
+      cover: "/articles/js-proxy.jpg",
+    },
+    {
+      title: "Memoization vs Caching in JavaScript",
+      blurb: "Two ways to stop doing the same work twice: function-level memoization and app-level caching, and when to use each.",
+      tag: "Performance",
+      date: "Jan 2026",
+      read: "3 min",
+      href: "https://www.linkedin.com/pulse/memoization-vs-caching-javascript-marat-alembikov-uoc2c/",
+      cover: "/articles/memoization-vs-caching.jpg",
+    },
+    {
+      title: "React App Security Best Practices",
+      blurb: "XSS, CSRF and data leaks are frontend problems too: practical defences for React apps.",
+      tag: "Security",
+      date: "Aug 2025",
+      read: "2 min",
+      href: "https://www.linkedin.com/pulse/react-app-security-best-practices-protect-against-xss-marat-alembikov-wolte/",
+      cover: "/articles/react-security.jpg",
+    },
+    {
+      title: "Animating with Framer Motion",
+      blurb: "Smooth, declarative React animations without keyframes or heavy libraries.",
+      tag: "Animation",
+      date: "Aug 2025",
+      read: "2 min",
+      href: "https://www.linkedin.com/pulse/animating-framer-motion-create-smooth-animations-code-marat-alembikov-mt6me/",
+      cover: "/articles/framer-motion.jpg",
+    },
+    {
+      title: "React + Web Workers with Comlink",
+      blurb: "Move heavy work off the main thread and keep the UI at 60 fps.",
+      tag: "Performance",
+      date: "Aug 2025",
+      read: "1 min",
+      href: "https://www.linkedin.com/pulse/react-web-workers-comlink-keep-your-ui-smooth-marat-alembikov-w6f5e/",
+      cover: "/articles/web-workers-comlink.jpg",
+    },
+    {
+      title: "SSR, SSG and SPA: Choosing the Right Rendering Strategy",
+      blurb: "Where each rendering model wins, and how to pick one for your product.",
+      tag: "Architecture",
+      date: "Aug 2025",
+      read: "2 min",
+      href: "https://www.linkedin.com/pulse/ssr-ssg-spa-choosing-right-rendering-strategy-marat-alembikov-qqaqe/",
+      cover: "/articles/rendering-strategies.jpg",
+    },
+    {
+      title: "Testing Frontend Applications: From Unit to E2E",
+      blurb: "A testing pyramid that actually works for frontend teams.",
+      tag: "Testing",
+      date: "Aug 2025",
+      read: "2 min",
+      href: "https://www.linkedin.com/pulse/testing-frontend-applications-from-unit-e2e-marat-alembikov-30wye/",
+      cover: "/articles/frontend-testing.jpg",
+    },
+    {
+      title: "CI/CD in Frontend with GitLab",
+      blurb: "Automating delivery and code-quality checks for frontend projects.",
+      tag: "DevOps",
+      date: "Jul 2025",
+      read: "2 min",
+      href: "https://www.linkedin.com/pulse/cicd-frontend-automating-delivery-code-quality-gitlab-marat-alembikov-ikz6e/",
+      cover: "/articles/frontend-cicd.jpg",
+    },
+    {
+      title: "State Management in Large React Apps",
+      blurb: "How to keep state predictable as a React app and its team grow.",
+      tag: "Architecture",
+      date: "Jun 2025",
+      read: "3 min",
+      href: "https://www.linkedin.com/pulse/best-practices-state-management-large-react-apps-marat-alembikov-sigue/",
+      cover: "/articles/state-management.jpg",
+    },
+  ] satisfies Article[],
 
   /** Tech stack with brand icons. `icon` is a simple-icons export name; without it a monogram is drawn. */
   toolbox: [
@@ -394,7 +532,7 @@ export const site = {
   galleryWords: ["Build", "Lead", "Ship"],
 
   socials: [
-    { label: "LinkedIn", handle: "Marat Alembikov", href: "#" },
+    { label: "LinkedIn", handle: "Marat Alembikov", href: "https://www.linkedin.com/in/marat-alembikov/" },
     { label: "GitHub", handle: "@alembikovm", href: "https://github.com/alembikovm" },
     { label: "Upwork", handle: "Profile", href: "#" },
   ],

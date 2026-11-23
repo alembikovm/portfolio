@@ -33,16 +33,15 @@ export function Experience() {
         scrollTrigger: { trigger: section.current, start: "top top", end: () => `+=${distance()}`, scrub: true },
       });
 
-      // Cards come into focus as they cross the middle of the screen
+      // Cards come into focus as they enter from the right; opacity only, so the row stays aligned
       gsap.utils.toArray<HTMLElement>(".exp-card").forEach((card) => {
         gsap.fromTo(
           card,
-          { opacity: 0.35, y: 16 },
+          { opacity: 0.35 },
           {
             opacity: 1,
-            y: 0,
             ease: "none",
-            scrollTrigger: { trigger: card, containerAnimation: tween, start: "left 95%", end: "left 60%", scrub: true },
+            scrollTrigger: { trigger: card, containerAnimation: tween, start: "left 100%", end: "left 80%", scrub: true },
           },
         );
       });
@@ -56,7 +55,7 @@ export function Experience() {
         <SectionTitle>Experience</SectionTitle>
       </div>
 
-      <div ref={track} className="mt-10 flex w-max gap-4 pl-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] pr-6 will-change-transform">
+      <div ref={track} className="relative z-[2] mt-10 flex w-max gap-4 pl-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] pr-6 will-change-transform">
         {site.experience.map((e) => (
           <article key={`${e.org}-${e.title}`}className="exp-card relative w-[min(80vw,340px)] shrink-0 bg-white p-6 pb-10 shadow-[0_1px_0_rgb(0_0_0/0.04)]">
             <span className="absolute -top-1.5 left-6 h-3 w-3 rounded-full bg-acc" />
