@@ -7,6 +7,7 @@ import { Lab } from "@/components/sections/Lab";
 import { LeetCode } from "@/components/sections/LeetCode";
 import { Toolbox } from "@/components/sections/Toolbox";
 import { Writing } from "@/components/sections/Writing";
+import { Mentoring } from "@/components/sections/Mentoring";
 import { Motivation } from "@/components/sections/Motivation";
 import { Mindset } from "@/components/sections/Mindset";
 import { Experience } from "@/components/sections/Experience";
@@ -29,6 +30,7 @@ export default function Home() {
         <LeetCode />
         <Toolbox />
         <Writing />
+        <Mentoring />
         <Motivation />
         <Mindset />
         <Experience />

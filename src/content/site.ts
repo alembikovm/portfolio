@@ -87,6 +87,7 @@ export const site = {
     { id: "leetcode", label: "LeetCode" },
     { id: "toolbox", label: "Stack" },
     { id: "writing", label: "Writing" },
+    { id: "mentoring", label: "Mentoring" },
     { id: "motivation", label: "Approach" },
     { id: "experience", label: "Experience" },
     { id: "highlights", label: "Impact" },
@@ -489,6 +490,24 @@ export const site = {
       ],
     },
   ],
+
+  mentoring: {
+    href: "https://getmentor.dev/mentor/marat-alembikov-7371",
+    platform: "GetMentor",
+    lead: "One-on-one sessions for frontend engineers who want to level up, pass interviews or move to an international team.",
+    tags: ["Frontend", "Career", "Interviews", "Code Review"],
+    topics: [
+      { title: "Career moves", text: "Relocation, job search and getting hired by international companies." },
+      { title: "Code review & architecture", text: "A second pair of eyes on your React / Next.js project and its structure." },
+      { title: "JS / TS internals", text: "Event loop, closures, prototypes and the TypeScript type system, explained until they click." },
+      { title: "Mock interviews", text: "A realistic technical interview with honest feedback on strengths and gaps." },
+    ],
+    background: [
+      "Took a social platform from zero to 4M users",
+      "Projects with 500k+ users under load",
+      "20+ technical interviews from the hiring side",
+    ],
+  },
 
   motivation: {
     lead: "The best internal tool is the one people stop noticing.",
