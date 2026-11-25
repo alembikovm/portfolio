@@ -1,100 +1,101 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import { useRef } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { ScrollTrigger, useGSAP } from "@/lib/gsap";
 
 /** Shared, mutable target that ScrollTrigger writes and the render loop eases towards. */
-const target = { x: 0.6, y: 0, opacity: 0 };
+/** Scroll progress 0..1 along the spiral, written by ScrollTrigger and read by the render loop. */
+const target = { p: 0 };
 
-function Geodesic() {
+/** Loops the logo makes over the page, and how far it swings from centre (fraction of half the viewport). */
+const TURNS = 4;
+const FADE = 0.03;
+
+/** Point on a "breathing" spiral: the radius swells and shrinks so loops are not identical. */
+function spiral(p: number) {
+  const a = p * TURNS * Math.PI * 2 - Math.PI / 2;
+  const r = 0.55 + 0.2 * Math.sin(p * Math.PI * 5);
+  return { x: Math.cos(a) * r * 0.9, y: Math.sin(a) * r * 0.75 };
+}
+
+/** Ellipse in the XY plane, used as the path for one orbit tube. */
+class Orbit extends THREE.Curve<THREE.Vector3> {
+  constructor(private rx: number, private ry: number) {
+    super();
+  }
+  getPoint(t: number, out = new THREE.Vector3()) {
+    const a = t * Math.PI * 2;
+    return out.set(Math.cos(a) * this.rx, Math.sin(a) * this.ry, 0);
+  }
+}
+
+/** Logo units: the official SVG's orbit rx of 11 maps to 1.5 world units. */
+const U = 1.5 / 11;
+const orbit = new THREE.TubeGeometry(new Orbit(11 * U, 4.2 * U), 160, 0.07, 16, true);
+/** One material for every part, so fading is a single opacity write. Module-level: this file is client-only. */
+const mat = new THREE.MeshStandardMaterial({ color: "#8d918e", emissive: "#2e322f", roughness: 0.45, metalness: 0.15, transparent: true });
+
+/** On-screen width of the logo in CSS pixels (capped to a quarter of narrow screens). */
+const SIZE_PX = 180;
+
+/** The React atom, proportions from the official SVG (rx 11, ry 4.2, nucleus 2.05). */
+function ReactLogo() {
   const group = useRef<THREE.Group>(null);
-  const lineMat = useRef<THREE.LineBasicMaterial>(null);
-  const pointMat = useRef<THREE.PointsMaterial>(null);
-  const coreMat = useRef<THREE.MeshStandardMaterial>(null);
-  const { viewport } = useThree();
-
-  const { wire, nodes } = useMemo(() => {
-    const ico = new THREE.IcosahedronGeometry(1.5, 2);
-    const wire = new THREE.WireframeGeometry(ico);
-    // De-duplicate vertices so each node is drawn once
-    const pos = ico.getAttribute("position");
-    const seen = new Set<string>();
-    const pts: number[] = [];
-    for (let i = 0; i < pos.count; i++) {
-      const k = `${pos.getX(i).toFixed(3)},${pos.getY(i).toFixed(3)},${pos.getZ(i).toFixed(3)}`;
-      if (!seen.has(k)) {
-        seen.add(k);
-        pts.push(pos.getX(i), pos.getY(i), pos.getZ(i));
-      }
-    }
-    const nodes = new THREE.BufferGeometry();
-    nodes.setAttribute("position", new THREE.Float32BufferAttribute(pts, 3));
-    return { wire, nodes };
-  }, []);
+  const { viewport, size } = useThree();
+  const unit = viewport.width / size.width; // world units per CSS pixel
+  const scale = (Math.min(SIZE_PX, size.width * 0.25) * unit) / (2 * 11 * U);
 
   useFrame((_, dt) => {
     const g = group.current;
     if (!g) return;
     const k = 1 - Math.pow(0.002, dt); // frame-rate independent easing
-    g.position.x += (target.x * (viewport.width / 2) - g.position.x) * k;
-    g.position.y += (target.y * (viewport.height / 2) - g.position.y) * k;
-    g.rotation.y += dt * 0.15;
-    g.rotation.x += dt * 0.05;
-    const o = target.opacity;
-    if (lineMat.current) lineMat.current.opacity = 0.45 * o;
-    if (pointMat.current) pointMat.current.opacity = 0.9 * o;
-    if (coreMat.current) coreMat.current.opacity = o;
+    const { x, y } = spiral(target.p);
+    g.position.x += (x * (viewport.width / 2) - g.position.x) * k;
+    g.position.y += (y * (viewport.height / 2) - g.position.y) * k;
+    g.rotation.y += dt * 0.6;
+    const o = Math.min(1, target.p / FADE, (1 - target.p) / FADE);
+    mat.opacity = Math.max(0, o);
     g.visible = o > 0.01;
   });
 
   return (
-    <group ref={group} scale={Math.min(0.62, viewport.width / 14)}>
-      <lineSegments geometry={wire}>
-        <lineBasicMaterial ref={lineMat} color="#5a615b" transparent />
-      </lineSegments>
-      <points geometry={nodes}>
-        <pointsMaterial ref={pointMat} color="#6f8f78" size={0.09} sizeAttenuation transparent />
-      </points>
-      <mesh>
-        <sphereGeometry args={[0.55, 48, 48]} />
-        <meshStandardMaterial ref={coreMat} color="#8d918e" emissive="#3c403d" roughness={0.4} metalness={0.1} transparent />
+    <group ref={group} scale={scale} rotation={[0.25, 0, -0.15]}>
+      {[0, 60, 120].map((deg) => (
+        <mesh key={deg} geometry={orbit} material={mat} rotation={[0, 0, THREE.MathUtils.degToRad(deg)]} />
+      ))}
+      <mesh material={mat}>
+        <sphereGeometry args={[2.05 * U, 32, 32]} />
       </mesh>
-      <pointLight position={[0.3, 0.2, 1.2]} intensity={3} color="#bfe3c9" />
+      <pointLight position={[0.4, 0.3, 1.5]} intensity={3} color="#ffffff" />
     </group>
   );
 }
 
 /**
- * Fixed full-screen canvas (z-[1]) with a geodesic sphere that travels across
- * Motivation → Mindset → Experience. Sections with z-[2] backgrounds hide it.
+ * Fixed full-screen canvas above the sections (below the header) with a grey
+ * 3D React logo that spirals across the screen as the page scrolls.
  */
 export default function Sphere() {
   useGSAP(() => {
-    gsap
-      .timeline({
-        defaults: { ease: "none" },
-        scrollTrigger: {
-          trigger: "#motivation",
-          start: "top 70%",
-          endTrigger: "#experience",
-          end: "bottom 30%",
-          scrub: 1,
-          refreshPriority: -1,
-        },
-      })
-      .fromTo(target, { opacity: 0, x: 0.62, y: 0.05 }, { opacity: 1, duration: 0.3 })
-      .to(target, { x: 0.15, y: -0.45, duration: 1 })
-      .to(target, { x: -0.7, y: 0.05, duration: 1 })
-      .to(target, { x: 0.55, y: -0.35, duration: 1.2 })
-      .to(target, { opacity: 0, duration: 0.3 });
+    // Spirals across the screen from the end of the hero down to Contact
+    ScrollTrigger.create({
+      trigger: "#statement",
+      start: "top 80%",
+      endTrigger: "#contact",
+      end: "top 60%",
+      refreshPriority: -1, // measure after the pinned sections
+      onUpdate: (self) => {
+        target.p = self.progress;
+      },
+    });
   });
 
   return (
     // R3F sets pointer-events:auto on its own wrapper; force it off so the fixed
     // full-screen canvas never swallows hovers and clicks meant for the page.
-    <div aria-hidden className="pointer-events-none fixed inset-0 z-[1] [&_*]:pointer-events-none!">
+    <div aria-hidden className="pointer-events-none fixed inset-0 z-40 [&_*]:pointer-events-none!">
       <Canvas
         camera={{ position: [0, 0, 8], fov: 40 }}
         dpr={[1, 2]}
@@ -102,7 +103,7 @@ export default function Sphere() {
         style={{ pointerEvents: "none" }}
       >
         <ambientLight intensity={0.6} />
-        <Geodesic />
+        <ReactLogo />
       </Canvas>
     </div>
   );

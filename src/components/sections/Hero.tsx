@@ -8,6 +8,10 @@ import { Dust } from "@/components/ui/Dust";
 
 const REPEAT = 8;
 
+/** The portrait card at the top of the page, and where scrolling shrinks it to. */
+const CARD_START = "inset(13% 26% 13% 26% round 28px)";
+const CARD_END = "inset(15% 32% 17% 32% round 28px)";
+
 function NameRow({ className, invert }: { className: string; invert?: boolean }) {
   const { first, last } = site.name;
   return (
@@ -24,9 +28,9 @@ function NameRow({ className, invert }: { className: string; invert?: boolean })
 }
 
 /**
- * Pinned hero (CSS sticky inside a 320vh section). Scroll scrubs one timeline:
- * full-bleed portrait → rounded card, name rows slide in opposite directions,
- * a handwritten signature writes itself over the photo.
+ * Pinned hero (CSS sticky inside a 320vh section). The portrait starts as a large
+ * rounded card; scroll scrubs one timeline: the card shrinks, name rows slide in
+ * opposite directions and a handwritten signature writes itself over the photo.
  */
 export function Hero() {
   const root = useRef<HTMLElement>(null);
@@ -38,15 +42,8 @@ export function Hero() {
         scrollTrigger: { trigger: root.current, start: "top top", end: "bottom bottom", scrub: 0.6 },
       });
 
-      tl.fromTo(
-        ".hero-photo",
-        { clipPath: "inset(0% 0% 0% 0% round 0px)" },
-        { clipPath: "inset(15% 32% 17% 32% round 28px)", duration: 1 },
-        0,
-      )
-        .fromTo(".hero-photo-inner", { scale: 1 }, { scale: 0.7, duration: 1 }, 0)
-        .fromTo(".hero-veil", { opacity: 0.35 }, { opacity: 0, duration: 0.6 }, 0)
-        .fromTo(".hero-names", { opacity: 0 }, { opacity: 1, duration: 0.35 }, 0.2)
+      tl.fromTo(".hero-photo", { clipPath: CARD_START }, { clipPath: CARD_END, duration: 1 }, 0)
+        .fromTo(".hero-photo-inner", { scale: 0.8 }, { scale: 0.7, duration: 1 }, 0)
         .fromTo(".hero-row-a", { xPercent: 0 }, { xPercent: -18, duration: 1.4 }, 0)
         .fromTo(".hero-row-b", { xPercent: -24 }, { xPercent: -6, duration: 1.4 }, 0)
         .fromTo(".hero-sign", { clipPath: "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.7 }, 0.55)
@@ -60,22 +57,21 @@ export function Hero() {
     <section id="home" ref={root} className="relative h-[320vh]">
       <div className="hero-stage group/hero bg-dots sticky top-0 h-svh overflow-hidden">
         {/* Name rows sit behind the photo */}
-        <div className="hero-names absolute inset-x-0 top-1/2 z-10 -translate-y-1/2 opacity-0">
+        <div className="hero-names absolute inset-x-0 top-1/2 z-10 -translate-y-1/2">
           <NameRow className="hero-row-a" />
           <NameRow className="hero-row-b" invert />
         </div>
 
         <Dust className="absolute inset-0 z-[15]" />
 
-        {/* Portrait: full-bleed, then clipped down to a card */}
-        <div className="hero-photo absolute inset-0 z-20 will-change-[clip-path]">
-          <div className="hero-photo-inner absolute inset-0 will-change-transform">
-            <Photo src={site.portrait} alt={`${site.name.first} ${site.name.last}`} tone="from-stone-200 via-stone-500 to-stone-900" focus={site.portraitFocus} sizes="100vw" grayscale priority className="h-full w-full" />
+        {/* Portrait, clipped to a rounded card in the middle of the stage */}
+        <div className="hero-photo absolute inset-0 z-20" style={{ clipPath: CARD_START }}>
+          <div className="hero-photo-inner absolute inset-0" style={{ transform: "scale(0.8)" }}>
+            <Photo src={site.portrait} alt={`${site.name.first} ${site.name.last}`} tone="from-stone-200 via-stone-500 to-stone-900" focus={site.portraitFocus} sizes="100vw" priority className="h-full w-full" />
             {!site.portrait && (
               <span className="absolute inset-x-0 bottom-[22%] text-center text-xs uppercase tracking-[0.3em] text-white/70">Your portrait</span>
             )}
           </div>
-          <div className="hero-veil absolute inset-0 bg-stone-500 mix-blend-multiply" />
         </div>
 
         {/* Signature drawn over the photo */}
@@ -83,7 +79,7 @@ export function Hero() {
           className="hero-sign pointer-events-none absolute inset-0 z-30 flex items-center justify-center"
           style={{ clipPath: "inset(0% 100% 0% 0%)" }}
         >
-          <span className="-rotate-6 font-script text-[clamp(5rem,12vw,11rem)] leading-none text-acc [text-shadow:0_0_1px_rgb(47_90_62/0.6)]">
+          <span className="-rotate-6 font-script text-[clamp(5rem,12vw,11rem)] leading-none text-white [text-shadow:0_2px_14px_rgb(0_0_0/0.35)]">
             {site.name.first} {site.name.last}
           </span>
         </div>
@@ -127,7 +123,7 @@ export function Hero() {
           </a>
         </div>
 
-        <span className="hero-hint absolute bottom-[2.5%] left-1/2 z-40 -translate-x-1/2 text-[0.65rem] uppercase tracking-[0.3em] text-white/80">
+        <span className="hero-hint absolute bottom-[2.5%] left-1/2 z-40 -translate-x-1/2 text-[0.65rem] uppercase tracking-[0.3em] text-muted">
           Scroll ↓
         </span>
       </div>

@@ -57,12 +57,12 @@ export function Experience() {
 
       <div ref={track} className="relative z-[2] mt-10 flex w-max gap-4 pl-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] pr-6 will-change-transform">
         {site.experience.map((e) => (
-          <article key={`${e.org}-${e.title}`}className="exp-card relative w-[min(80vw,340px)] shrink-0 bg-white p-6 pb-10 shadow-[0_1px_0_rgb(0_0_0/0.04)]">
-            <span className="absolute -top-1.5 left-6 h-3 w-3 rounded-full bg-acc" />
-            <p className="font-serif text-lg text-acc">{e.when}</p>
-            <h3 className="mt-1 font-serif text-2xl leading-tight">{e.title}</h3>
-            <p className="mt-2 text-[0.65rem] uppercase tracking-[0.1em] text-muted">{e.org}</p>
-            <p className="mt-4 text-sm leading-relaxed text-ink2">{e.body}</p>
+          <article key={`${e.org}-${e.title}`}className="exp-card relative w-[min(85vw,620px)] shrink-0 bg-white p-10 pb-14 shadow-[0_1px_0_rgb(0_0_0/0.04)]">
+            <span className="absolute -top-2 left-10 h-4 w-4 rounded-full bg-acc" />
+            <p className="font-serif text-2xl text-acc">{e.when}</p>
+            <h3 className="mt-2 font-serif text-4xl leading-tight">{e.title}</h3>
+            <p className="mt-3 text-xs uppercase tracking-[0.1em] text-muted">{e.org}</p>
+            <p className="mt-6 text-lg leading-relaxed text-ink2">{e.body}</p>
           </article>
         ))}
       </div>

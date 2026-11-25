@@ -60,9 +60,9 @@ export const site = {
   email: "alembikovm@gmail.com",
   cv: "/Marat_Alembikov_CV.pdf",
   /** Put a photo in /public and set the path, e.g. "/portrait.jpg". */
-  portrait: "/portrait.jpg" as string | null,
+  portrait: "/portrait-violet.jpg" as string | null,
   /** CSS object-position: keeps the face in frame for both the wide and the card crop. */
-  portraitFocus: "50% 28%",
+  portraitFocus: "52% 14%",
   city: "Almaty",
   year: 2026,
 
@@ -270,6 +270,7 @@ export const site = {
         { label: "Live", href: "https://wows-ship-encyclopedia.vercel.app" },
         { label: "Code", href: "https://github.com/alembikovm/wows-ship-encyclopedia" },
       ],
+      image: "/wows-encyclopedia.jpg",
       tone: "from-slate-800 to-sky-900",
     },
     {
@@ -339,6 +340,7 @@ export const site = {
 
   /** LinkedIn articles, newest first. The first one is featured. */
   linkedin: "https://www.linkedin.com/in/marat-alembikov/",
+  telegram: { href: "https://t.me/alembikovm" },
   articles: [
     {
       title: "AI App Security: Plugging the Holes Everyone Forgets",
@@ -493,19 +495,11 @@ export const site = {
 
   mentoring: {
     href: "https://getmentor.dev/mentor/marat-alembikov-7371",
-    platform: "GetMentor",
-    lead: "One-on-one sessions for frontend engineers who want to level up, pass interviews or move to an international team.",
-    tags: ["Frontend", "Career", "Interviews", "Code Review"],
     topics: [
       { title: "Career moves", text: "Relocation, job search and getting hired by international companies." },
-      { title: "Code review & architecture", text: "A second pair of eyes on your React / Next.js project and its structure." },
-      { title: "JS / TS internals", text: "Event loop, closures, prototypes and the TypeScript type system, explained until they click." },
-      { title: "Mock interviews", text: "A realistic technical interview with honest feedback on strengths and gaps." },
-    ],
-    background: [
-      "Took a social platform from zero to 4M users",
-      "Projects with 500k+ users under load",
-      "20+ technical interviews from the hiring side",
+      { title: "Code review & architecture", text: "Code review and architecture decisions in React / Next.js projects." },
+      { title: "JS / TS internals", text: "Event loop, closures, prototypes and the TypeScript type system." },
+      { title: "Mock interviews", text: "A realistic technical interview with honest feedback on strengths and weak spots." },
     ],
   },
 
@@ -553,7 +547,7 @@ export const site = {
 
   languages: [
     { name: "English", level: "B2 · EFSET" },
-    { name: "Русский", level: "Native" },
+    { name: "Russian", level: "Native" },
   ],
 
   github: "https://github.com/alembikovm",

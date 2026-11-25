@@ -3,6 +3,7 @@ import { Chip } from "@/components/ui/Chip";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionTitle } from "@/components/ui/SectionTitle";
 import { CaseGallery } from "@/components/ui/CaseGallery";
+import { NotesPanel } from "@/components/ui/NotesPanel";
 
 const statCols: Record<number, string> = { 2: "sm:grid-cols-2", 3: "sm:grid-cols-3", 4: "sm:grid-cols-4" };
 
@@ -21,29 +22,6 @@ function Meta({ p }: { p: Project }) {
         </div>
       ))}
     </dl>
-  );
-}
-
-/** Dark, code-style panel with the engineering details. */
-function UnderTheHood({ items, file }: { items: string[]; file: string }) {
-  return (
-    <div className="overflow-hidden rounded-2xl bg-graphite text-white shadow-[0_30px_60px_-35px_rgb(0_0_0/0.6)]">
-      <div className="flex items-center justify-between border-b border-white/10 px-5 py-3 font-mono text-[0.68rem] text-white/50">
-        <span>{file}</span>
-        <span className="text-[#9cc9a8]">under the hood</span>
-      </div>
-      <Reveal as="ol" className="space-y-2.5 px-5 py-5 font-mono text-[0.8rem] leading-relaxed" stagger={0.06} y={12}>
-        {items.map((t, i) => (
-          <li key={t} className="flex gap-3">
-            <span className="w-5 shrink-0 select-none text-right text-white/30">{String(i + 1).padStart(2, "0")}</span>
-            <span>
-              <span className="text-[#9cc9a8]">→ </span>
-              {t}
-            </span>
-          </li>
-        ))}
-      </Reveal>
-    </div>
   );
 }
 
@@ -96,7 +74,7 @@ function CaseStudy({ p, i }: { p: Project; i: number }) {
         </div>
 
         <div className="flex flex-col gap-6">
-          <UnderTheHood items={p.engineering} file={`${slug}/NOTES.md`} />
+          <NotesPanel items={p.engineering} file={`${slug}/NOTES.md`} />
 
           {p.stats && (
             <Reveal

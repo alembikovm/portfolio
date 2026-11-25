@@ -40,6 +40,9 @@ export function Contact() {
             <a href={`mailto:${site.email}`} className={link}>
               {site.email}
             </a>
+            <a href={site.telegram.href} target="_blank" rel="noreferrer" className={link}>
+              Telegram
+            </a>
             <a href={site.linkedin} target="_blank" rel="noreferrer" className={link}>
               LinkedIn
             </a>

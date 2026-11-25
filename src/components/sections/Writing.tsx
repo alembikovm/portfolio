@@ -11,17 +11,18 @@ import { SectionTitle } from "@/components/ui/SectionTitle";
  * Index 0 is the latest article and gets the biggest frame.
  */
 const spots = [
-  { x: 37, y: 12, w: 26, rot: -1.5, speed: 0.05 },
-  { x: 1, y: 0, w: 16, rot: 3, speed: 0.18 },
-  { x: 19, y: 9, w: 15, rot: -3, speed: -0.12 },
-  { x: 65, y: 3, w: 15, rot: 4, speed: 0.15 },
-  { x: 83, y: 0, w: 16, rot: -2, speed: -0.1 },
-  { x: 3, y: 52, w: 15, rot: -4, speed: -0.15 },
-  { x: 20, y: 60, w: 16, rot: 2, speed: 0.12 },
-  { x: 65, y: 56, w: 16, rot: -3, speed: 0.16 },
-  { x: 83, y: 50, w: 15, rot: 3, speed: -0.12 },
-  { x: 42, y: 74, w: 16, rot: 2, speed: 0.1 },
-]
+  { x: 36, y: 10, w: 28, rot: -1.5, speed: 0.05 },
+  { x: 0, y: 0, w: 17, rot: 3, speed: 0.18 },
+  { x: 18, y: 8, w: 17, rot: -3, speed: -0.12 },
+  { x: 65, y: 4, w: 17, rot: 4, speed: 0.15 },
+  { x: 83, y: 0, w: 17, rot: -2, speed: -0.1 },
+  { x: 1, y: 52, w: 17, rot: -4, speed: -0.15 },
+  { x: 19, y: 60, w: 17, rot: 2, speed: 0.12 },
+  { x: 64, y: 58, w: 17, rot: -3, speed: 0.16 },
+  { x: 83, y: 50, w: 17, rot: 3, speed: -0.12 },
+  { x: 36, y: 76, w: 14, rot: 2, speed: 0.1 },
+  { x: 51, y: 78, w: 14, rot: -2, speed: -0.08 },
+];
 
 /** LinkedIn mark drawn by hand (simple-icons no longer ships it). */
 function LinkedInIcon({ className = "" }: { className?: string }) {
@@ -59,7 +60,7 @@ function Cover({ a, i }: { a: Article; i: number }) {
             src={a.cover}
             alt=""
             fill
-            sizes={featured ? "(max-width: 768px) 100vw, 40vw" : "(max-width: 768px) 50vw, 25vw"}
+            sizes={featured ? "(max-width: 768px) 100vw, 30vw" : "(max-width: 768px) 50vw, 20vw"}
             className="object-cover transition duration-700 group-hover:scale-[1.06]"
           />
           {featured && (
@@ -131,7 +132,7 @@ export function Writing() {
       </div>
 
       {/* Background outline words drifting behind the covers */}
-      <div className="w-stage relative mx-auto mt-10 grid max-w-[1400px] grid-cols-2 gap-x-4 gap-y-8 px-6 md:block md:h-[max(68vh,560px)] md:px-8">
+      <div className="w-stage relative mx-auto mt-10 grid max-w-[1400px] grid-cols-2 gap-x-4 gap-y-8 px-6 md:block md:h-[max(84vh,700px)] md:px-8">
         {["Notes", "Ideas"].map((word, i) => (
           <span
             key={word}
