@@ -1,6 +1,5 @@
 import Script from "next/script";
-
-const COUNTER_ID = 114697602;
+import { METRIKA_ID as COUNTER_ID, MetrikaGoals } from "./MetrikaGoals";
 
 /** Yandex Metrika with Webvisor. trackLinks also records outbound links and file downloads (CV). */
 export function YandexMetrika() {
@@ -14,6 +13,7 @@ k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNo
 (window, document, "script", "https://mc.yandex.ru/metrika/tag.js?id=${COUNTER_ID}", "ym");
 ym(${COUNTER_ID}, "init", {ssr:true, webvisor:true, clickmap:true, accurateTrackBounce:true, trackLinks:true});`}
       </Script>
+      <MetrikaGoals />
       <noscript>
         <div>
           {/* eslint-disable-next-line @next/next/no-img-element */}
