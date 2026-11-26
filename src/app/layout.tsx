@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Instrument_Sans, Instrument_Serif, JetBrains_Mono, Mrs_Saint_Delafield } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
+import { YandexMetrika } from "@/components/providers/YandexMetrika";
 import { site } from "@/content/site";
 import "./globals.css";
 
@@ -24,6 +26,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={`${sans.variable} ${serif.variable} ${script.variable} ${mono.variable}`}>
       <body className="bg-bg text-ink">
         <SmoothScroll>{children}</SmoothScroll>
+        <Analytics />
+        <YandexMetrika />
       </body>
     </html>
   );
