@@ -37,15 +37,17 @@ const orbit = new THREE.TubeGeometry(new Orbit(11 * U, 4.2 * U), 160, 0.07, 16, 
 /** One material for every part, so fading is a single opacity write. Module-level: this file is client-only. */
 const mat = new THREE.MeshStandardMaterial({ color: "#8d918e", emissive: "#2e322f", roughness: 0.45, metalness: 0.15, transparent: true });
 
-/** On-screen width of the logo in CSS pixels (capped to a quarter of narrow screens). */
+/** On-screen width of the logo in CSS pixels; phones get half of a quarter of the screen. */
 const SIZE_PX = 180;
+const MOBILE_MAX = 768;
 
 /** The React atom, proportions from the official SVG (rx 11, ry 4.2, nucleus 2.05). */
 function ReactLogo() {
   const group = useRef<THREE.Group>(null);
   const { viewport, size } = useThree();
   const unit = viewport.width / size.width; // world units per CSS pixel
-  const scale = (Math.min(SIZE_PX, size.width * 0.25) * unit) / (2 * 11 * U);
+  const px = size.width < MOBILE_MAX ? Math.min(SIZE_PX, size.width * 0.25) / 2 : Math.min(SIZE_PX, size.width * 0.25);
+  const scale = (px * unit) / (2 * 11 * U);
 
   useFrame((_, dt) => {
     const g = group.current;
