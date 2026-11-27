@@ -1,5 +1,6 @@
 import Script from "next/script";
-import { METRIKA_ID as COUNTER_ID, MetrikaGoals } from "./MetrikaGoals";
+import { MetrikaGoals } from "./MetrikaGoals";
+import { METRIKA_ID as COUNTER_ID } from "./metrika-config";
 
 /** Yandex Metrika with Webvisor. trackLinks also records outbound links and file downloads (CV). */
 export function YandexMetrika() {

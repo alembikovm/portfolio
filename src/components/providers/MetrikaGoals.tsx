@@ -2,8 +2,7 @@
 
 import { useEffect } from "react";
 import { site } from "@/content/site";
-
-export const METRIKA_ID = 114697602;
+import { METRIKA_ID } from "./metrika-config";
 
 declare global {
   interface Window {
